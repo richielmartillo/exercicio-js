@@ -1,84 +1,113 @@
-// Objeto representando um usuário válido
-// Este usuário deve passar na validação final
-const usuario = {
-  nome: "Carlos",
-  idade: 20,
-  email: "carlos@email.com",
-  ativo: true
-}
+// Lista de usuários
+const usuarios = [
+  {
+    nome: "Carlos",
+    idade: 25,
+    email: "carlos@email.com",
+    ativo: true
+  },
+  {
+    nome: "Ana",
+    idade: 16,
+    email: "anaemail.com",
+    ativo: false
+  },
+  {
+    nome: "Marcos",
+    idade: 30,
+    email: "marcos@email.com",
+    ativo: true
+  },
+  {
+    nome: "Julia",
+    idade: 17,
+    email: "julia@email.com",
+    ativo: true
+  }
+]
 
-// Objeto representando um usuário inválido
-// Este usuário NÃO deve passar na validação final
-const usuarioInvalido = {
-  nome: "Ana",
-  idade: 16,
-  email: "anaemail.com",
-  ativo: false
-}
-
-// DESAFIO
-// Implemente esta função para verificar se o usuário é maior de idade.
-//
-// Regras:
-// - Deve retornar true se a idade for maior ou igual a 18
-// - Caso contrário, retornar false
-//
-// Exemplo:
-// verificarMaiorIdade(20) -> true
-// verificarMaiorIdade(15) -> false
+// Verifica se a pessoa possui 18 anos ou mais
 function verificarMaiorIdade(idade) {
-  return idade >= 18
+  if (idade >= 18) {
+    return true
+  } else {
+    return false
+  }
 }
 
-// Função pronta
-// Esta função verifica se o email possui o caractere "@"
+// Verifica se o e-mail contém o caractere "@"
 function validarEmail(email) {
   return email.includes("@")
 }
 
-// DESAFIO
-// Implemente esta função para verificar se o usuário está ativo.
-//
-// Regras:
-// - Deve retornar true se o usuário estiver ativo
-// - Caso contrário, retornar false
-//
-// Dica: utilize a propriedade "ativo" do objeto usuário
+// Verifica se o usuário está ativo
 function usuarioAtivo(usuario) {
   return usuario.ativo
 }
 
-// Esta função combina todas as validações do cadastro
-// Ela só retorna true se TODAS as regras forem válidas
+// Combina todas as validações
 function validarCadastro(usuario) {
-
   const maiorIdade = verificarMaiorIdade(usuario.idade)
   const emailValido = validarEmail(usuario.email)
   const ativo = usuarioAtivo(usuario)
 
-  // operador lógico AND (&&)
-  // todas as condições precisam ser verdadeiras
   return maiorIdade && emailValido && ativo
 }
 
-// Execução no console para validar o exercício
-// Após implementar as funções, execute:
-//
-// node usuario.js
-//
-// Resultado esperado:
-// Usuário 1 válido? true
-// Usuário 2 válido? false
+// Cria os cartões no HTML
+function exibirUsuarios() {
+  const listaUsuarios = document.querySelector("#lista-usuarios")
 
-console.log("Usuário 1 válido?", validarCadastro(usuario))
-console.log("Usuário 2 válido?", validarCadastro(usuarioInvalido))
+  usuarios.forEach((usuario) => {
+    const maiorIdade = verificarMaiorIdade(usuario.idade)
+    const emailValido = validarEmail(usuario.email)
+    const ativo = usuarioAtivo(usuario)
+    const cadastroValido = validarCadastro(usuario)
 
-// NÃO ALTERAR
-// Essas exportações serão usadas no próximo módulo
-// para criar testes automatizados com Jest
-module.exports = {
-  verificarMaiorIdade,
-  validarEmail,
-  usuarioAtivo,
-  validarCadastro
+    const cartao = document.createElement("article")
+    cartao.classList.add("cartao")
+
+    cartao.innerHTML = `
+      <h2>${usuario.nome}</h2>
+
+      <p>
+        Idade: <strong>${usuario.idade}</strong>
+      </p>
+
+      <p class="${maiorIdade ? "valido" : "invalido"}">
+        Maior de idade: ${maiorIdade ? "Sim" : "Não"}
+      </p>
+
+      <p class="${emailValido ? "valido" : "invalido"}">
+        E-mail válido: ${emailValido ? "Sim" : "Não"}
+      </p>
+
+      <p class="${ativo ? "valido" : "invalido"}">
+        Usuário ativo: ${ativo ? "Sim" : "Não"}
+      </p>
+
+      <p class="${cadastroValido ? "valido" : "invalido"}">
+        <strong>
+          Cadastro: ${cadastroValido ? "Aprovado" : "Reprovado"}
+        </strong>
+      </p>
+    `
+
+    listaUsuarios.appendChild(cartao)
+  })
+}
+
+// Executa esta parte somente no navegador
+if (typeof document !== "undefined") {
+  exibirUsuarios()
+}
+
+// Executa esta parte somente no Node.js/Jest
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    verificarMaiorIdade,
+    validarEmail,
+    usuarioAtivo,
+    validarCadastro
+  }
 }
