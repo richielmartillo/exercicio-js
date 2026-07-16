@@ -1,82 +1,104 @@
-# Exercício – Validação de Cadastro de Usuário (JavaScript)
+# Validação de usuários
 
-## Objetivo
+Projeto desenvolvido para praticar lógica de programação com JavaScript, validação de dados e manipulação do HTML.
 
-Neste exercício você irá praticar conceitos básicos de **JavaScript**, incluindo:
+A aplicação verifica se cada usuário possui um cadastro válido e apresenta os resultados em cartões na página.
 
-- Tipos de dados
-- Variáveis
-- Operadores de comparação
-- Operadores lógicos
-- Funções
-- Manipulação de objetos
+## Funcionalidades
 
-O objetivo é implementar algumas funções que validam se um **cadastro de usuário é válido**.
+Cada usuário passa pelas seguintes validações:
 
-Este código também será utilizado no **próximo módulo**, onde criaremos **testes automatizados com Jest**.
+- Verificação de maioridade;
+- Verificação do caractere `@` no e-mail;
+- Verificação de usuário ativo;
+- Validação completa do cadastro.
 
----
+O cadastro somente é aprovado quando todas as condições retornam `true`.
 
-# Cenário
+```js
+return maiorIdade && emailValido && ativo
+```
 
-Um sistema possui um cadastro de usuários e precisa validar algumas regras antes de considerar o cadastro válido.
+## Regras de validação
 
-As regras são:
+Um cadastro é considerado válido quando:
 
-- O usuário deve ter **18 anos ou mais**
-- O email deve conter **"@"**
-- O usuário deve estar **ativo**
+- O usuário possui 18 anos ou mais;
+- O e-mail contém o caractere `@`;
+- O usuário está ativo.
 
----
+## Tecnologias utilizadas
 
-# Desafio
+- HTML5
+- CSS3
+- JavaScript
+- Node.js
+- Git e GitHub
 
-No arquivo `usuario.js`, algumas funções estão incompletas.
+## Estrutura do projeto
 
-Você deverá implementar as seguintes funções:
+```text
+exercicio-js/
+├── index.html
+├── style.css
+├── usuario.js
+├── package.json
+├── package-lock.json
+├── .gitignore
+└── README.md
+```
 
-## verificarMaiorIdade
+## Como executar no navegador
 
-Esta função deve retornar:
+1. Clone o repositório:
 
-- `true` se a idade for **maior ou igual a 18**
-- `false` caso contrário
+```bash
+git clone https://github.com/richielmartillo/exercicio-js.git
+```
 
----
+2. Entre na pasta do projeto:
 
-## usuarioAtivo
+```bash
+cd exercicio-js
+```
 
-Esta função deve verificar se o usuário está ativo.
+3. Abra o arquivo `index.html` no navegador.
 
-Ela deve retornar:
+Também é possível executar o projeto utilizando a extensão Live Server do VS Code.
 
-- `true` se o usuário estiver ativo
-- `false` caso contrário
+## Como executar com Node.js
 
----
-## Como executar o exercício
+No terminal, dentro da pasta do projeto, execute:
 
-1. Abra o terminal
-
-2. Acesse a pasta do projeto
-
-
-cd nome-da-pasta-do-projeto
-
-
-3. Execute o arquivo JavaScript com Node.js
-
-
+```bash
 node usuario.js
+```
 
+## Funções principais
 
----
+### `verificarMaiorIdade(idade)`
 
-## Resultado esperado
+Retorna `true` quando a idade é maior ou igual a 18.
 
-Após implementar corretamente as funções, o resultado no console deve ser parecido com este:
+### `validarEmail(email)`
 
+Retorna `true` quando o e-mail contém o caractere `@`.
 
-Usuário 1 válido? true
+### `usuarioAtivo(usuario)`
 
-Usuário 2 válido? false
+Retorna o valor da propriedade `ativo` do usuário.
+
+### `validarCadastro(usuario)`
+
+Combina todas as validações e retorna `true` somente quando todas forem aprovadas.
+
+## Cenários utilizados
+
+- Carlos: cadastro aprovado;
+- Ana: menor de idade, e-mail inválido e usuário inativo;
+- Marcos: cadastro aprovado;
+- Julia: cadastro reprovado por ser menor de idade.
+
+## Autor
+
+Desenvolvido por [Richard Marlon Balestrim](https://github.com/richielmartillo).
