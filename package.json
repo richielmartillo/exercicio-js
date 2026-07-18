@@ -1,17 +1,17 @@
 {
-  "name": "exercicio",
+  "name": "exercicio-js",
   "version": "1.0.0",
-  "description": "Neste exercício você irá praticar conceitos básicos de **JavaScript**, incluindo:",
-  "homepage": "https://github.com/EBAC-QE/exercicio-js#readme",
+  "description": "Projeto de validação de cadastro de usuários desenvolvido com JavaScript.",
+  "homepage": "https://github.com/richielmartillo/exercicio-js#readme",
   "bugs": {
-    "url": "https://github.com/EBAC-QE/exercicio-js/issues"
+    "url": "https://github.com/richielmartillo/exercicio-js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EBAC-QE/exercicio-js.git"
+    "url": "git+https://github.com/richielmartillo/exercicio-js.git"
   },
   "license": "ISC",
-  "author": "",
+  "author": "Richard Marlon Balestrim",
   "type": "commonjs",
   "main": "usuario.js",
   "scripts": {

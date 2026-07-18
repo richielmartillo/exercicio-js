@@ -97,12 +97,12 @@ function exibirUsuarios() {
   })
 }
 
-// Executa esta parte somente no navegador
+// Executa a interface somente no navegador
 if (typeof document !== "undefined") {
   exibirUsuarios()
 }
 
-// Executa esta parte somente no Node.js/Jest
+// Exporta as funções somente no Node.js/Jest
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     verificarMaiorIdade,
@@ -110,4 +110,18 @@ if (typeof module !== "undefined" && module.exports) {
     usuarioAtivo,
     validarCadastro
   }
+}
+
+// Mostra os resultados somente ao executar: node usuario.js
+if (
+  typeof require !== "undefined" &&
+  typeof module !== "undefined" &&
+  require.main === module
+) {
+  usuarios.forEach((usuario, indice) => {
+    console.log(
+      `Usuário ${indice + 1} (${usuario.nome}) válido?`,
+      validarCadastro(usuario)
+    )
+  })
 }
