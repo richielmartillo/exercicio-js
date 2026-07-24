@@ -15,6 +15,16 @@
   "type": "commonjs",
   "main": "usuario.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node api.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0",
+    "supertest": "^7.2.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "swagger-ui-express": "^5.0.1"
   }
 }
