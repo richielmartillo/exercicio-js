@@ -1,31 +1,53 @@
-# Validação de usuários
+# Validação de Usuários com Jest, API REST e Swagger
 
-Projeto desenvolvido para praticar lógica de programação com JavaScript, validação de dados e manipulação do HTML.
-
-A aplicação verifica se cada usuário possui um cadastro válido e apresenta os resultados em cartões na página.
+Projeto criado inicialmente para praticar lógica de programação e validação de usuários com JavaScript. Ele foi ampliado para incluir testes unitários com Jest, práticas de cobertura de código, uma API REST CRUD com Express, testes de endpoints com Supertest e documentação interativa com Swagger.
 
 ## Funcionalidades
 
-Cada usuário passa pelas seguintes validações:
-
-- Verificação de maioridade;
-- Verificação do caractere `@` no e-mail;
+- Validação de maioridade;
+- Validação da presença de `@` no e-mail;
 - Verificação de usuário ativo;
-- Validação completa do cadastro.
+- Validação completa do cadastro;
+- Exibição dos usuários em cartões HTML;
+- Listagem de usuários pela API;
+- Busca de usuário por ID;
+- Criação de usuário;
+- Atualização de usuário;
+- Exclusão de usuário;
+- Documentação interativa dos endpoints com Swagger.
 
-O cadastro somente é aprovado quando todas as condições retornam `true`.
+## Regras de validação
+
+Um usuário possui cadastro válido quando atende simultaneamente às regras abaixo:
+
+- Tem 18 anos ou mais;
+- Possui `@` no e-mail;
+- Está ativo.
+
+A validação completa é feita pela função `validarCadastro`:
 
 ```js
 return maiorIdade && emailValido && ativo
 ```
 
-## Regras de validação
+## Funções de validação
 
-Um cadastro é considerado válido quando:
+| Função | Responsabilidade |
+| --- | --- |
+| `verificarMaiorIdade(idade)` | Retorna `true` para idade maior ou igual a 18. |
+| `validarEmail(email)` | Retorna `true` quando o e-mail contém `@`. |
+| `usuarioAtivo(usuario)` | Retorna o valor da propriedade `ativo`. |
+| `validarCadastro(usuario)` | Combina todas as regras de validação. |
 
-- O usuário possui 18 anos ou mais;
-- O e-mail contém o caractere `@`;
-- O usuário está ativo.
+## Endpoints da API
+
+| Método e rota | Descrição | Principais códigos HTTP |
+| --- | --- | --- |
+| `GET /usuarios` | Retorna todos os usuários. | `200` |
+| `GET /usuarios/:id` | Retorna um usuário pelo ID. | `200`, `404` |
+| `POST /usuarios` | Cria um usuário quando o cadastro é válido. | `201`, `400` |
+| `PUT /usuarios/:id` | Atualiza um usuário e valida o cadastro completo resultante. | `200`, `400`, `404` |
+| `DELETE /usuarios/:id` | Exclui um usuário existente. | `204`, `404` |
 
 ## Tecnologias utilizadas
 
@@ -33,71 +55,116 @@ Um cadastro é considerado válido quando:
 - CSS3
 - JavaScript
 - Node.js
+- Express
+- Jest
+- Supertest
+- Swagger UI Express
 - Git e GitHub
 
 ## Estrutura do projeto
 
 ```text
 exercicio-js/
+├── api.js
+├── api.test.js
 ├── index.html
 ├── style.css
 ├── usuario.js
+├── usuario.test.js
 ├── package.json
 ├── package-lock.json
 ├── .gitignore
 └── README.md
 ```
 
-## Como executar no navegador
-
-1. Clone o repositório:
+## Como instalar
 
 ```bash
 git clone https://github.com/richielmartillo/exercicio-js.git
-```
-
-2. Entre na pasta do projeto:
-
-```bash
 cd exercicio-js
+npm install
 ```
 
-3. Abra o arquivo `index.html` no navegador.
+## Como executar a interface
 
-Também é possível executar o projeto utilizando a extensão Live Server do VS Code.
+Abra o arquivo `index.html` diretamente no navegador ou execute-o com a extensão Live Server do VS Code.
 
 ## Como executar com Node.js
 
-No terminal, dentro da pasta do projeto, execute:
+Para visualizar os resultados das validações no terminal:
 
 ```bash
 node usuario.js
 ```
 
-## Funções principais
+## Como iniciar a API
 
-### `verificarMaiorIdade(idade)`
+```bash
+npm start
+```
 
-Retorna `true` quando a idade é maior ou igual a 18.
+Com o servidor em execução, os endereços são:
 
-### `validarEmail(email)`
+- API: <http://localhost:3000/usuarios>
+- Swagger: <http://localhost:3000/api-docs>
 
-Retorna `true` quando o e-mail contém o caractere `@`.
+No Swagger, use **Try it out** e **Execute** para enviar requisições aos endpoints documentados.
 
-### `usuarioAtivo(usuario)`
+## Exemplos de requisição
 
-Retorna o valor da propriedade `ativo` do usuário.
+Exemplo de corpo JSON para `POST /usuarios`:
 
-### `validarCadastro(usuario)`
+```json
+{
+  "nome": "Mariana",
+  "idade": 22,
+  "email": "mariana@email.com",
+  "ativo": true
+}
+```
 
-Combina todas as validações e retorna `true` somente quando todas forem aprovadas.
+## Testes
 
-## Cenários utilizados
+Os testes unitários das regras de negócio são feitos com Jest. Eles praticam cobertura de instruções, decisões, condições e caminhos, sem afirmar cobertura completa de caminhos. Os endpoints da API são testados com Jest e Supertest.
 
-- Carlos: cadastro aprovado;
-- Ana: menor de idade, e-mail inválido e usuário inativo;
-- Marcos: cadastro aprovado;
-- Julia: cadastro reprovado por ser menor de idade.
+Para executar todos os testes:
+
+```bash
+npm test
+```
+
+## Cobertura de código
+
+Para gerar o relatório de cobertura:
+
+```bash
+npm run test:coverage
+```
+
+O relatório do Jest apresenta os seguintes indicadores:
+
+- **Statements**: instruções executadas pelos testes;
+- **Branches**: caminhos de decisões e expressões condicionais exercitados;
+- **Functions**: funções chamadas pelos testes;
+- **Lines**: linhas executadas pelos testes.
+
+### Resultados atuais
+
+- 2 suítes aprovadas;
+- 25 testes aprovados;
+- Statements: 94,44%;
+- Branches: 93,05%;
+- Functions: 91,30%;
+- Lines: 94,25%.
+
+Esses valores podem mudar quando novos testes ou funcionalidades forem adicionados.
+
+## Limitações
+
+- Os dados da API ficam apenas em memória;
+- Usuários criados são perdidos quando o servidor é reiniciado;
+- Não há banco de dados nem autenticação;
+- A validação de e-mail verifica apenas a presença de `@`.
 
 ## Autor
 
